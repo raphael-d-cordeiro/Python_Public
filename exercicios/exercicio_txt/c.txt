@@ -1,0 +1,4 @@
+CO11 CSE C1 8
+CO12 ETC C1 8
+CO13 Electrical C2 12
+CO14 Mech E 5

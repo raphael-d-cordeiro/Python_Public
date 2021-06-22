@@ -1,0 +1,5 @@
+CID    Name    Points.    Enrollment.    Average.    
+CO11 *    CSE     8    
+CO12 *    ETC     8    
+CO13 *    Electrical     12    
+CO14 -    Mech     5    

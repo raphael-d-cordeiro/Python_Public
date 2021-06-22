@@ -1,0 +1,5 @@
+In Run -> Edit Configurations create new configuration
+[+] / Python
+Name: runserver
+Scrip Path: path_to/manage.py
+Parameters: runserver
