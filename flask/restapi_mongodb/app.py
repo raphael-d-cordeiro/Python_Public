@@ -69,11 +69,11 @@ def login():
     auth = request.authorization
 
     if auth and auth.password == '123':
-        token = jwt.encode({
+        payload = {
             "user": auth.username,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=40)},
-            app.config['SECRET_KEY'],
-        )
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+        }
+        token = jwt.encode(payload, app.config['SECRET_KEY'])
         return jsonify({"token": token})
     return make_response('Could not verify!', 401, {'WWW-Authenticate': 'Basic realm="Login Required'})
 
