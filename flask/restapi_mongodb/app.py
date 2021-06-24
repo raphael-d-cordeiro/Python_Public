@@ -1,8 +1,14 @@
-from flask import Flask, request, jsonify, Response
+import datetime
+from functools import wraps
+
+from flask import Flask, request, jsonify, Response, make_response
 from flask_pymongo import PyMongo
 
 # hash password and check password
 from werkzeug.security import generate_password_hash, check_password_hash
+
+# jwt tokens
+import jwt
 
 # turn data mongo legible in json format
 from bson import json_util
@@ -11,8 +17,8 @@ from bson import json_util
 from bson.objectid import ObjectId
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'thisisthesecretkey'
 app.config["MONGO_URI"] = 'mongodb://127.0.0.1/pythonmongodb'
-
 mongo = PyMongo(app)
 
 
@@ -56,6 +62,37 @@ def get_user(id_mongo):
     })
     response = json_util.dumps(user)
     return Response(response, mimetype="application/json")
+
+
+@app.route('/login')
+def login():
+    auth = request.authorization
+
+    if auth and auth.password == '123':
+        token = jwt.encode({
+            "user": auth.username,
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=40)},
+            app.config['SECRET_KEY'],
+        )
+        return jsonify({"token": token})
+    return make_response('Could not verify!', 401, {'WWW-Authenticate': 'Basic realm="Login Required'})
+
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.args.get('token')  # http://127.0.0.1:5000/route?token=blablabla
+
+        if not token:
+            return jsonify({"message": "Token is missing!"}), 403
+
+        try:
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+        except:
+            return jsonify({"message": "Token is invalid!"}), 403
+        return f(*args, **kwargs)
+
+    return decorated
 
 
 @app.route('/users/<id_mongo>', methods=['DELETE'])
