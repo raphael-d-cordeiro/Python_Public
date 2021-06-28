@@ -21,9 +21,45 @@ class TestBaconWithEggs(unittest.TestCase):
         with self.assertRaises(AssertionError):
             bacon_with_eggs('')
 
-    def test_bacon_with_eggs_must_return_true_if_multiple_3and5(self):
+    def test_bacon_with_eggs_must_return_baconwitheggs_if_multiple_3and5(self):
         inputs = (15, 30, 45, 60)
         output = 'Bacon with eggs'
+
+        for input in inputs:
+            with self.subTest(input=input, output=output):
+                self.assertEqual(
+                    bacon_with_eggs(i=input),
+                    output,
+                    msg=f'Input "{input}" does not return "{output}"'
+                )
+
+    def test_bacon_with_eggs_must_return_hungry_if_not_multiple_3and5(self):
+        inputs = (26, 32, 11, 19)
+        output = 'Hungry'
+
+        for input in inputs:
+            with self.subTest(input=input, output=output):
+                self.assertEqual(
+                    bacon_with_eggs(i=input),
+                    output,
+                    msg=f'Input "{input}" does not return "{output}"'
+                )
+
+    def test_bacon_with_eggs_must_return_bacon_if_multiple_3(self):
+        inputs = (3, 6, 9, 12)
+        output = 'Bacon'
+
+        for input in inputs:
+            with self.subTest(input=input, output=output):
+                self.assertEqual(
+                    bacon_with_eggs(i=input),
+                    output,
+                    msg=f'Input "{input}" does not return "{output}"'
+                )
+
+    def test_bacon_with_eggs_must_return_bacon_if_multiple_3(self):
+        inputs = (5, 10, 20, 25)
+        output = 'Eggs'
 
         for input in inputs:
             with self.subTest(input=input, output=output):
