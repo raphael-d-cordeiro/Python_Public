@@ -11,6 +11,22 @@ Refactor
 Step 3 - Improve my code
 
 """
+try:
+    import sys
+    import os
+
+    sys.path.append(
+        os.path.abspath(
+            os.path.join(
+                os.path.dirname(__file__),
+                '..\\src'
+            )
+        )
+    )
+
+except:
+    raise
+
 
 import unittest
 from baconwitheggs import bacon_with_eggs
@@ -70,4 +86,5 @@ class TestBaconWithEggs(unittest.TestCase):
                 )
 
 
-unittest.main(verbosity=2)
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

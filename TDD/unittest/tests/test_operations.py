@@ -1,4 +1,21 @@
 # https://docs.python.org/3/library/unittest.html
+try:
+    import sys
+    import os
+
+    sys.path.append(
+        os.path.abspath(
+            os.path.join(
+                os.path.dirname(__file__),
+                '..\\src'
+            )
+        )
+    )
+
+except:
+    raise
+
+
 import unittest
 from operations import multiply_num, subtraction_num
 
@@ -29,4 +46,5 @@ class TestOperations(unittest.TestCase):
             multiply_num(5, 'b')
 
 
-unittest.main(verbosity=2)
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
