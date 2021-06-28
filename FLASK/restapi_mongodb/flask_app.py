@@ -81,7 +81,8 @@ def login():
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        token = request.args.get('token')  # http://127.0.0.1:5000/route?token=blablabla
+        # http://127.0.0.1:5000/route?token=blablabla
+        token = request.args.get('token')
 
         if not token:
             return jsonify({"message": "Token is missing!"}), 403
@@ -100,7 +101,8 @@ def delete_user(id_mongo):
     mongo.db.users.delete_one({
         "_id": ObjectId(id_mongo),
     })
-    response = jsonify({"message": "User" + id_mongo + "was Deleted successfully"})
+    response = jsonify(
+        {"message": "User" + id_mongo + "was Deleted successfully"})
     return response
 
 
@@ -116,7 +118,8 @@ def update_user(id_mongo):
             "password": hashed_password,
             "email": email
         }})
-        response = jsonify({"message": "User" + id_mongo + "was updated successfuly"})
+        response = jsonify(
+            {"message": "User" + id_mongo + "was updated successfuly"})
         return response
 
 
