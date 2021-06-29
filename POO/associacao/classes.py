@@ -27,7 +27,7 @@ class Caneta:
     def escrever(self):
         print('Caneta está escrevendo...')
 
+
 class MaquinaDeEscrever:
     def escrever(self):
         print('Máquina está escrevendo...')
-
