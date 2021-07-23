@@ -4,9 +4,15 @@ Comma Separated Values - CSV (Valores separados por vírgula)
 dados, clientes de e-mail, etc...
 """
 import csv
+import os
 
-with open('exercicio_csv.csv', 'r') as arquivo:
+working_path = os.path.join(os.getcwd(), 'exercicios')
+csv_file = os.path.join(working_path, 'exercicio_csv.csv')
+
+with open(csv_file, 'r') as arquivo:
     dados = [x for x in csv.DictReader(arquivo)]
+
+print(dados)
 
 with open('exercicio_csv2.csv', 'w') as arquivo:
     escreve = csv.writer(
